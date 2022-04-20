@@ -33,7 +33,6 @@ class FoodItem(models.Model):
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=100, unique=True)
     amount = models.FloatField()
     measure = models.ForeignKey(
         Measure, related_name="measure", on_delete=models.CASCADE
@@ -42,11 +41,16 @@ class Ingredient(models.Model):
         FoodItem, related_name="food_item", on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.amount + self.measure + self.food_item
+
 
 class Step(models.Model):
-    name = models.CharField(max_length=100)
     recipe = models.ForeignKey(
         Recipe, related_name="recipe", on_delete=models.CASCADE
     )
     order = models.PositiveSmallIntegerField()
     directions = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.order + self.directions
