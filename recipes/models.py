@@ -30,3 +30,23 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    amount = models.FloatField()
+    measure = models.ForeignKey(
+        Measure, related_name="measure", on_delete=models.CASCADE
+    )
+    food_item = models.ForeignKey(
+        FoodItem, related_name="food_item", on_delete=models.CASCADE
+    )
+
+
+class Step(models.Model):
+    name = models.CharField(max_length=100)
+    recipe = models.ForeignKey(
+        Recipe, related_name="recipe", on_delete=models.CASCADE
+    )
+    order = models.PositiveSmallIntegerField()
+    directions = models.CharField(max_length=300)
