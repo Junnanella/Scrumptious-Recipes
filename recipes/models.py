@@ -42,7 +42,7 @@ class Ingredient(models.Model):
     )
 
     def __str__(self):
-        return self.amount + self.measure + self.food_item
+        return f"{self.amount} + {self.measure} + {self.food_item}"
 
 
 class Step(models.Model):
@@ -53,4 +53,4 @@ class Step(models.Model):
     directions = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.order + self.directions
+        return f"{self.order} + {self.directions}"
