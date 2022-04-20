@@ -34,12 +34,14 @@ class FoodItem(models.Model):
 
 class Ingredient(models.Model):
     amount = models.FloatField()
-    measure = models.ForeignKey(
-        Measure, related_name="measure", on_delete=models.CASCADE
+    recipe = models.ForeignKey(
+        "Recipe",
+        related_name="ingredients",
+        on_delete=models.CASCADE,
+        null=True,
     )
-    food_item = models.ForeignKey(
-        FoodItem, related_name="food_item", on_delete=models.CASCADE
-    )
+    measure = models.ForeignKey("Measure", on_delete=models.PROTECT)
+    food_item = models.ForeignKey("FoodItem", on_delete=models.PROTECT)
 
     def __str__(self):
         return f"{self.amount} + {self.measure} + {self.food_item}"
@@ -47,7 +49,7 @@ class Ingredient(models.Model):
 
 class Step(models.Model):
     recipe = models.ForeignKey(
-        Recipe, related_name="recipe", on_delete=models.CASCADE
+        "Recipe", related_name="steps", on_delete=models.CASCADE, null=True
     )
     order = models.PositiveSmallIntegerField()
     directions = models.CharField(max_length=300)
