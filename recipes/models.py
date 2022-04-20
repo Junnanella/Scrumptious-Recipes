@@ -6,7 +6,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=125)
     author = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.URLField(null=True, blank=True)
+    image = models.URLField(null=True, blank=True, max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -22,7 +22,7 @@ class Measure(models.Model):
     abbreviation = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
-        return self.name
+        return self.abbreviation
 
 
 class FoodItem(models.Model):
@@ -40,8 +40,12 @@ class Ingredient(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
-    measure = models.ForeignKey("Measure", on_delete=models.PROTECT)
-    food_item = models.ForeignKey("FoodItem", on_delete=models.PROTECT)
+    measure = models.ForeignKey(
+        "Measure", related_name="ingredients", on_delete=models.PROTECT
+    )
+    food_item = models.ForeignKey(
+        "FoodItem", related_name="ingredients", on_delete=models.PROTECT
+    )
 
     def __str__(self):
         return f"{self.amount} + {self.measure} + {self.food_item}"
