@@ -87,7 +87,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-if os.environment.get("DATABASE_URL"):
+if os.environ.get("DATABASE_URL"):
     DATABASES["default"].update(dj_database_url.config())
 
 # Password validation
