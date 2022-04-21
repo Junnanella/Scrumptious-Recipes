@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load markdownify %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@
       <h1>{{ recipe.name }}</h1>
       <p>Created on {{ recipe.created }} | Updated on {{ recipe.updated }}</p>
       <p>Tags: {% for tag in recipe.tags.all %}{{ tag.name }} {% endfor %}</p>
-      <p>{{ recipe.description }}</p>
+      {{ recipe.description | markdownify }}
       <h2>Ingredients</h2>
       <table>
         <thead>

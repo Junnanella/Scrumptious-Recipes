@@ -15,7 +15,7 @@ header nav ul {
 a,
 a:visited {
   text-decoration: none;
-  color: #208ACC;
+  color: #A97155;
 }
 
 button.button {
@@ -100,3 +100,4 @@ textarea {
 .control {
   text-align: right;
 }
+
