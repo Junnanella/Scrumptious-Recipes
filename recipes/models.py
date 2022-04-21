@@ -10,8 +10,9 @@ class Recipe(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    """the __str__ method, is what gets called by Python when it wants to turn it into a string. 
-    You can use any of the properties that you defined in the __str__ method."""
+    """the __str__ method, is what gets called by Python when it wants to turn
+    it into a string. You can use any of the properties
+    that you defined in the __str__ method."""
 
     def __str__(self):
         return self.name

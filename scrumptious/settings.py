@@ -128,7 +128,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Whitelist Tags
-"""Add whitelisted tags with the WHITELIST_TAGS key 
+"""Add whitelisted tags with the WHITELIST_TAGS key
 and a list of tags as the value. For example:"""
 
 MARKDOWNIFY = {
