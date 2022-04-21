@@ -74,3 +74,6 @@ class Rating(models.Model):
     recipe = models.ForeignKey(
         "Recipe", related_name="ratings", on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return f"{self.value} {self.recipe}"
