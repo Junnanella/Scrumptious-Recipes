@@ -44,6 +44,7 @@
       <p>Tags: {% for tag in recipe.tags.all %}
         <a href="{% url 'tag_detail' tag.pk %}">{{ tag.name }}</a>
         {% endfor %}</p>
+        <a href="{% url 'tag_new' %}">Add New Tag</a>
       {{ recipe.description | markdownify }}
       <h2>Ingredients</h2>
       <table>

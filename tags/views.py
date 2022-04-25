@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 try:
     from tags.models import Tag
@@ -23,3 +24,10 @@ class TagListView(ListView):
 class TagDetailView(DetailView):
     model = Tag
     template_name = "tags/detail.html"
+
+
+class TagCreateView(CreateView):
+    model = Tag
+    template_name = "tags/new.html"
+    fields = ["name"]
+    success_url = reverse_lazy("recipes_list")
