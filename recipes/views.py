@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from recipes.forms import RatingForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 try:
     from recipes.forms import RecipeForm
@@ -10,6 +11,7 @@ except Exception:
     Recipe = None
 
 
+"""DELETED CREATE_RECIPE FUNCTION - switching to a CreateView
 def create_recipe(request):
     if request.method == "POST" and RecipeForm:
         form = RecipeForm(request.POST)
@@ -23,7 +25,7 @@ def create_recipe(request):
     context = {
         "form": form,
     }
-    return render(request, "recipes/new.html", context)
+    return render(request, "recipes/new.html", context)"""
 
 
 def change_recipe(request, pk):
@@ -86,3 +88,16 @@ class RecipeDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["rating_form"] = RatingForm()
         return context
+
+
+# fields match fields indicate in RecipeForm in forms.py
+class RecipeCreateView(CreateView):
+    model = Recipe
+    template_name = "recipes/new.html"
+    fields = [
+        "name",
+        "author",
+        "description",
+        "image",
+    ]
+    success_url = reverse_lazy("recipes_list")
