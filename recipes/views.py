@@ -1,6 +1,12 @@
 from django.shortcuts import redirect
 from recipes.forms import RatingForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 
 try:
@@ -111,4 +117,10 @@ class RecipeUpdateView(UpdateView):
         "description",
         "image",
     ]
+    success_url = reverse_lazy("recipes_list")
+
+
+class RecipeDeleteView(DeleteView):
+    model = Recipe
+    template = "recipes/delete.html"
     success_url = reverse_lazy("recipes_list")
