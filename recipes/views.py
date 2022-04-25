@@ -122,5 +122,5 @@ class RecipeUpdateView(UpdateView):
 
 class RecipeDeleteView(DeleteView):
     model = Recipe
-    template = "recipes/delete.html"
+    template_name = "recipes/delete.html"
     success_url = reverse_lazy("recipes_list")
