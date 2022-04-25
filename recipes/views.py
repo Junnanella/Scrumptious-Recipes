@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from recipes.forms import RatingForm
-from django.views.generic.list import ListView
+from django.views.generic import ListView, DetailView
 
 try:
     from recipes.forms import RecipeForm
@@ -44,20 +44,20 @@ def change_recipe(request, pk):
     return render(request, "recipes/edit.html", context)
 
 
-"""DELETED SHOW_RECIPES FUNCTION - because we are switching to classes
+"""DELETED SHOW_RECIPES FUNCTION - switching to a ListView
 def show_recipes(request):
     context = {
         "recipes": Recipe.objects.all() if Recipe else [],
     }
     return render(request, "recipes/list.html", context)"""
 
-
+"""DELETED SHOW_RECIPE FUNCTION - switching to a DetailView
 def show_recipe(request, pk):
     context = {
         "recipe": Recipe.objects.get(pk=pk) if Recipe else None,
         "rating_form": RatingForm(),
     }
-    return render(request, "recipes/detail.html", context)
+    return render(request, "recipes/detail.html", context)"""
 
 
 def log_rating(request, recipe_id):
@@ -76,3 +76,13 @@ def log_rating(request, recipe_id):
 class RecipeListView(ListView):
     model = Recipe
     template_name = "recipes/list.html"
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = "recipes/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["rating_form"] = RatingForm()
+        return context
