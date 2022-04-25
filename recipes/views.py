@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from recipes.forms import RatingForm
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 try:
@@ -27,7 +27,7 @@ def create_recipe(request):
     }
     return render(request, "recipes/new.html", context)"""
 
-
+"""DELETED CHANGE_RECIPE FUNCTION - switching to a UpdateView
 def change_recipe(request, pk):
     if Recipe and RecipeForm:
         instance = Recipe.objects.get(pk=pk)
@@ -43,8 +43,7 @@ def change_recipe(request, pk):
     context = {
         "form": form,
     }
-    return render(request, "recipes/edit.html", context)
-
+    return render(request, "recipes/edit.html", context)"""
 
 """DELETED SHOW_RECIPES FUNCTION - switching to a ListView
 def show_recipes(request):
@@ -94,6 +93,18 @@ class RecipeDetailView(DetailView):
 class RecipeCreateView(CreateView):
     model = Recipe
     template_name = "recipes/new.html"
+    fields = [
+        "name",
+        "author",
+        "description",
+        "image",
+    ]
+    success_url = reverse_lazy("recipes_list")
+
+
+class RecipeUpdateView(UpdateView):
+    model = Recipe
+    template_name = "recipes/edit.html"
     fields = [
         "name",
         "author",
