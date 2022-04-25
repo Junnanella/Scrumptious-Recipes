@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 try:
     from tags.models import Tag
@@ -18,3 +18,8 @@ def show_tags(request):
 class TagListView(ListView):
     model = Tag
     template_name = "tags/list.html"
+
+
+class TagDetailView(DetailView):
+    model = Tag
+    template_name = "tags/detail.html"

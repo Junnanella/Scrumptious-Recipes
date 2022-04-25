@@ -10,7 +10,7 @@
   <body>
     <main>
       {% for tag in tag_list %}
-      <p>{{ tag.name }}</p>
+      <a href="{% url 'tag_detail' tag.pk %}">{{ tag.name }}</a>
       {% endfor %}
     </main>
   </body>
