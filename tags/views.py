@@ -1,11 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
-
-# try:
 from tags.models import Tag
-
-# except Exception:
-#     Tag = None
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 """DELETED SHOW_TAGS FUNCTION - switching to ListView
@@ -23,12 +19,12 @@ class TagListView(ListView):
     paginate_by = 2
 
 
-class TagDetailView(DetailView):
+class TagDetailView(LoginRequiredMixin, DetailView):
     model = Tag
     template_name = "tags/detail.html"
 
 
-class TagCreateView(CreateView):
+class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
     template_name = "tags/new.html"
     fields = ["name"]

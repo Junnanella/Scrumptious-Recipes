@@ -9,13 +9,9 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
-# try:
-from recipes.forms import RecipeForm
+# from recipes.forms import RecipeForm
 from recipes.models import Recipe
-
-# except Exception:
-#     RecipeForm = None
-#     Recipe = None
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 """DELETED CREATE_RECIPE FUNCTION - switching to a CreateView
@@ -101,7 +97,7 @@ class RecipeDetailView(DetailView):
 
 
 # fields match fields indicate in RecipeForm in forms.py
-class RecipeCreateView(CreateView):
+class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     template_name = "recipes/new.html"
     fields = [
@@ -113,7 +109,7 @@ class RecipeCreateView(CreateView):
     success_url = reverse_lazy("recipes_list")
 
 
-class RecipeUpdateView(UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     template_name = "recipes/edit.html"
     fields = [
@@ -125,7 +121,7 @@ class RecipeUpdateView(UpdateView):
     success_url = reverse_lazy("recipes_list")
 
 
-class RecipeDeleteView(DeleteView):
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = "recipes/delete.html"
     success_url = reverse_lazy("recipes_list")

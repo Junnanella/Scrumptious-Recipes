@@ -14,12 +14,23 @@
     <header>
       <nav>
         <ul>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
           <li>
             <a href="{% url 'home' %}">Scrumptious</a>
           </li>
+          {% if user.is_staff %}
           <li>
             <a href="{% url 'admin:index' %}">Admin</a>
           </li>
+          {% endif %}
           <li>
             <a href="{% url 'recipe_new' %}">Write a recipe</a>
           </li>
