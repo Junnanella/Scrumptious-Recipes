@@ -20,6 +20,7 @@ def show_tags(request):
 class TagListView(ListView):
     model = Tag
     template_name = "tags/list.html"
+    paginate_by = 2
 
 
 class TagDetailView(DetailView):
