@@ -9,12 +9,13 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
-try:
-    from recipes.forms import RecipeForm
-    from recipes.models import Recipe
-except Exception:
-    RecipeForm = None
-    Recipe = None
+# try:
+from recipes.forms import RecipeForm
+from recipes.models import Recipe
+
+# except Exception:
+#     RecipeForm = None
+#     Recipe = None
 
 
 """DELETED CREATE_RECIPE FUNCTION - switching to a CreateView

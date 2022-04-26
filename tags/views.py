@@ -1,10 +1,11 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 
-try:
-    from tags.models import Tag
-except Exception:
-    Tag = None
+# try:
+from tags.models import Tag
+
+# except Exception:
+#     Tag = None
 
 
 """DELETED SHOW_TAGS FUNCTION - switching to ListView
