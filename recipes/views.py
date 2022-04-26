@@ -116,7 +116,6 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "recipes/edit.html"
     fields = [
         "name",
-        "author",
         "description",
         "image",
     ]
