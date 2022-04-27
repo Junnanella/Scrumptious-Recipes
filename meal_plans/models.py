@@ -9,9 +9,9 @@ class MealPlan(models.Model):
     name = models.CharField(max_length=120)
     date = models.DateTimeField()
     owner = models.ForeignKey(
-        USER_MODEL, related_name="meal_plan", on_delete=models.CASCADE
+        USER_MODEL, related_name="mealplan", on_delete=models.CASCADE
     )
-    recipes = models.ManyToManyField("recipes.Recipe", related_name="meal_plan")
+    recipes = models.ManyToManyField("recipes.Recipe", related_name="mealplan")
 
     def __str__(self):
         return self.name

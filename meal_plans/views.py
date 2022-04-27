@@ -34,7 +34,7 @@ class MealPlanCreateView(LoginRequiredMixin, CreateView):
     template_name = "meal_plans/new.html"
     fields = ["name", "recipes", "date"]
 
-    success_url = reverse_lazy("meal_plans_list")
+    success_url = reverse_lazy("mealplan_list")
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -52,4 +52,4 @@ class MealPlanUpdateView(LoginRequiredMixin, UpdateView):
 class MealPlanDeleteView(LoginRequiredMixin, DeleteView):
     model = MealPlan
     template_name = "meal_plans/delete.html"
-    success_url = reverse_lazy("meal_plans_list")
+    success_url = reverse_lazy("mealplan_list")

@@ -1,10 +1,15 @@
-{% extends "base.html" %} {% load markdownify %} {% block content %}
+{% extends "base.html" %} {% load markdownify %} 
+{% block content %}
 <main class="recipe-detail">
-  <div>
-    <a href="{% url 'meal_plan_edit' meal_plan.id %}">Edit</a>
-    <a href="{% url 'meal_plan_delete' meal_plan.id %}">Delete</a>
-  </div>
-  <h1>{{ meal_plan.name }}</h1>
-  <h4>by: {{ meal_plan.owner | default_if_none:"Unknown" }}</h4>
+  <h1>{{ mealplan.name }}</h1>
+  <h4>by: {{ mealplan.owner | default_if_none:"Unknown" }}</h4>
+  {% for recipe in mealplan.recipes.all %}
+  <a href="{% url 'recipe_detail' recipe.pk%}">
+    <p> {{recipe.name}} </p>
+    {% empty %}
+    <h2>There are no meal plans yet</h2>
+  {% endfor %}
+  <p class="recipe-card-date">{{ mealplan.updated }}</p>
 </main>
-{% endblock content %}
+
+{%endblock content %}
