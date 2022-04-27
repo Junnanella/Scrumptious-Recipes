@@ -1,6 +1,13 @@
 {% extends "base.html" %} {% load markdownify %} 
 {% block content %}
 <main class="recipe-detail">
+  <div>
+    <a href="{% url 'mealplan_list' %}">Back</a>
+    <a href="{% url 'mealplan_edit' mealplan.id %}">Edit</a>
+    <a href="{% url 'mealplan_delete' mealplan.id %}">Delete</a>
+  </div>
+  <br>
+  <br>
   <h1>{{ mealplan.name }}</h1>
   <h4>by: {{ mealplan.owner | default_if_none:"Unknown" }}</h4>
   {% for recipe in mealplan.recipes.all %}
@@ -9,7 +16,7 @@
     {% empty %}
     <h2>There are no meal plans yet</h2>
   {% endfor %}
-  <p class="recipe-card-date">{{ mealplan.updated }}</p>
+  <p class="recipe-card-date">{{ mealplan.date|date:"l. M d, Y"}}</p>
 </main>
 
 {%endblock content %}
