@@ -1,10 +1,10 @@
 from django.urls import path
 
 from meal_plans.views import (
-    MealPlanCreateView,
-    MealPlanDeleteView,
-    MealPlanUpdateView,
-    MealPlanDetailView,
+    # MealPlanCreateView,
+    # MealPlanDeleteView,
+    # MealPlanUpdateView,
+    # MealPlanDetailView,
     MealPlanListView,
 )
 

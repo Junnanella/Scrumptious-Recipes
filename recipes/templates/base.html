@@ -14,6 +14,22 @@
     <header>
       <nav>
         <ul>
+          {% if user.is_staff %}
+          <li>
+            <a href="{% url 'admin:index' %}">Admin</a>
+          </li>
+          {% endif %} {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'meal_plans_list'%}">Meal Plans</a>
+          </li>
+          {% endif %}
+          <li>
+            <a href="{% url 'home' %}">Scrumptious</a>
+          </li>
+
+          <li>
+            <a href="{% url 'recipe_new' %}">Write a recipe</a>
+          </li>
           {% if request.user.is_authenticated %}
           <li>
             <a href="{% url 'logout' %}">Logout</a>
@@ -23,17 +39,6 @@
             <a href="{% url 'login' %}">Login</a>
           </li>
           {% endif %}
-          <li>
-            <a href="{% url 'home' %}">Scrumptious</a>
-          </li>
-          {% if user.is_staff %}
-          <li>
-            <a href="{% url 'admin:index' %}">Admin</a>
-          </li>
-          {% endif %}
-          <li>
-            <a href="{% url 'recipe_new' %}">Write a recipe</a>
-          </li>
         </ul>
       </nav>
     </header>
