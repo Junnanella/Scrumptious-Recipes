@@ -19,6 +19,9 @@ class MealPlanListView(ListView):
     template_name = "meal_plans/list.html"
     paginate_by = 2
 
+    def get_queryset(self):
+        return MealPlan.objects.filter(owner=self.request.user)
+
 
 class MealPlanDetailView(DetailView):
     model = MealPlan
@@ -49,12 +52,8 @@ class MealPlanUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "meal_plans/edit.html"
     fields = ["name", "recipes", "date"]
 
-    def form_valid(self, form):
-        mealplan = form.save(commit=False)
-        mealplan.owner = self.request.user
-        mealplan.save()
-        form.save_m2m()
-        return redirect("mealplan_detail", pk=mealplan.id)
+    def get_success_url(self) -> str:
+        return reverse_lazy("mealplan_detail", args=[self.object.id])
 
 class MealPlanDeleteView(LoginRequiredMixin, DeleteView):
     model = MealPlan
