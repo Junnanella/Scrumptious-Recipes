@@ -32,7 +32,7 @@ class MealPlanDetailView(DetailView):
 class MealPlanCreateView(LoginRequiredMixin, CreateView):
     model = MealPlan
     template_name = "meal_plans/new.html"
-    fields = ["name", "description"]
+    fields = ["name", "recipes", "date"]
 
     success_url = reverse_lazy("meal_plans_list")
 

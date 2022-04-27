@@ -1,14 +1,15 @@
 {% extends "base.html" %} {% block content %}
+
 <main class="recipe-grid">
   {% for recipe in recipe_list %}
   <div class="recipe-card">
     <h2 class="recipe-card-title">
-      <a href="{% url 'meal_plan_detail' meal_plan.pk %}"
-        >{{ meal_plan.name }}</a
-      >
+      <a href="{% url 'meal_plan_detail' mealplan.pk %}">{{ mealplan.name }}</a>
     </h2>
     <p class="recipe-card-date">{{ meal_plan.updated }}</p>
   </div>
   {% endfor %}
 </main>
+
+<a href="{% url 'meal_plan_new' %}">create new meal plan</a>
 {% endblock content %}
