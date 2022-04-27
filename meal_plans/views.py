@@ -44,9 +44,9 @@ class MealPlanCreateView(LoginRequiredMixin, CreateView):
 class MealPlanUpdateView(LoginRequiredMixin, UpdateView):
     model = MealPlan
     template_name = "meal_plans/edit.html"
-    fields = ["name", "description"]
+    fields = ["name", "recipes", "date"]
 
-    success_url = reverse_lazy("meal_plans_list")
+    success_url = reverse_lazy("mealplan_list")
 
 
 class MealPlanDeleteView(LoginRequiredMixin, DeleteView):

@@ -3,7 +3,7 @@
 <main class="recipe-grid">
   {% for mealplan in mealplan_list %}
   <div class="recipe-card">
-    <h2 class="recipe-card-title">
+    <h2 class="recipe-card-title meal-plan-title">
       <a href="{% url 'mealplan_detail' mealplan.pk %}"
         >{{ mealplan.name }}</a
       >

@@ -8,15 +8,17 @@
   </div>
   <br>
   <br>
-  <h1>{{ mealplan.name }}</h1>
-  <h4>by: {{ mealplan.owner | default_if_none:"Unknown" }}</h4>
+  <h1 class="meal-plan-title">{{ mealplan.name }}</h1>
+  <h3 class="meal-plan-title"> for {{ mealplan.date|date:"M d, Y"}} </h3>
+  <br>
   {% for recipe in mealplan.recipes.all %}
   <a href="{% url 'recipe_detail' recipe.pk%}">
     <p> {{recipe.name}} </p>
     {% empty %}
     <h2>There are no meal plans yet</h2>
   {% endfor %}
-  <p class="recipe-card-date">{{ mealplan.date|date:"l. M d, Y"}}</p>
+  <br>
+  <h4>by: {{ mealplan.owner | default_if_none:"Unknown" }}</h4>
 </main>
 
 {%endblock content %}
