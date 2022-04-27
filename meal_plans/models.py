@@ -12,3 +12,6 @@ class MealPlan(models.Model):
         USER_MODEL, related_name="meal_plan", on_delete=models.CASCADE
     )
     recipes = models.ManyToManyField("recipes.Recipe", related_name="meal_plan")
+
+    def __str__(self):
+        return self.name
