@@ -3,8 +3,10 @@
 <main class="recipe-detail">
   <div>
     <a href="{% url 'mealplan_list' %}">Back</a>
+    {% if request.user == mealplan.owner %}
     <a href="{% url 'mealplan_edit' mealplan.id %}">Edit</a>
     <a href="{% url 'mealplan_delete' mealplan.id %}">Delete</a>
+    {% endif %}
   </div>
   <br>
   <br>
