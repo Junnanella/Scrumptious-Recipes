@@ -81,6 +81,7 @@ class RecipeDeleteView(LoginRequiredMixin, DeleteView):
 class ShoppingListView(LoginRequiredMixin, ListView):
     model = ShoppingItem
     template_name = "recipes/shoppinglist.html"
+    context_object_name = "shopping_list"
 
     # Filter to only show shopping list to corresponding logged in user
     def get_queryset(self):

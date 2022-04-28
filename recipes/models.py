@@ -91,7 +91,6 @@ class ShoppingItem(models.Model):
     food_item = models.ForeignKey(
         FoodItem, related_name="shopping_item", on_delete=models.PROTECT
     )
-    context_object_name = "shopping_list"
 
     def __str__(self):
         return f"{self.user} {self.food_item}"
