@@ -8,9 +8,9 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse_lazy
+from django.db import IntegrityError
 
-# from recipes.forms import RecipeForm
-from recipes.models import Recipe, ShoppingItem
+from recipes.models import Recipe, ShoppingItem, Ingredient
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -78,6 +78,50 @@ class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("recipes_list")
 
 
-class ShoppinglistListView(LoginRequiredMixin, ListView):
+class ShoppingListView(LoginRequiredMixin, ListView):
     model = ShoppingItem
     template_name = "recipes/shoppinglist.html"
+
+    # Filter to only show shopping list to corresponding logged in user
+    def get_queryset(self):
+        return ShoppingItem.objects.filter(user=self.request.user)
+
+
+def create_shopping_item(request):
+    # Get the value for the "ingredient_id" from the
+    # request.POST dictionary using the "get" method
+    ingredient_id = request.POST.get("ingredient_id")
+
+    # Get the specific ingredient from the Ingredient model
+    # using the code
+    # Ingredient.objects.get(id=the value from the dictionary)
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+
+    # Get the current user which is stored in request.user
+    user = request.user
+
+    try:
+        # Create the new shopping item in the database
+        ShoppingItem.objects.create(food_item=ingredient.food_item, user=user)
+    except IntegrityError:
+        pass
+
+    # Go back to the recipe page with a redirect
+    # to the name of the registered recipe detail
+    # path with code like this
+    # return redirect(
+    #     name of the registered recipe detail path,
+    #     pk=id of the ingredient's recipe
+    # )
+    return redirect("recipe_detail", pk=ingredient.recipe.id)
+
+
+def delete_shopping_list(request):
+    # Delete all of the shopping items for the user
+    # using code like
+    ShoppingItem.objects.filter(user=request.user).delete()
+
+    # Go back to the shopping item list with a redirect
+    # to the name of the registered shopping item list
+    # path with code like this
+    return redirect("shopping_list")
