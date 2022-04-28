@@ -28,7 +28,7 @@
           </li>
           <li>
             <a href="{% url 'shopping_item_list' %}"
-              >Shop List ({{ shopping_list|length}})</a
+              >Shop List ({{ user.shopping_item.all|length }})</a
             >
           </li>
           {% endif %}

@@ -53,9 +53,10 @@ class RecipeDetailView(DetailView):
 
         for item in users_items:
             # Add the shopping item's food to the list
-            foods.append(item.food_item)
+            foods.append(item.food_item.name)
 
         # Put that list into the context
+        context["food_in_shopping_list"] = foods
         return context
 
 
