@@ -10,58 +10,8 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 # from recipes.forms import RecipeForm
-from recipes.models import Recipe
+from recipes.models import Recipe, ShoppingItem
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-"""DELETED CREATE_RECIPE FUNCTION - switching to a CreateView
-def create_recipe(request):
-    if request.method == "POST" and RecipeForm:
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            recipe = form.save()
-            return redirect("recipe_detail", pk=recipe.pk)
-    elif RecipeForm:
-        form = RecipeForm()
-    else:
-        form = None
-    context = {
-        "form": form,
-    }
-    return render(request, "recipes/new.html", context)"""
-
-"""DELETED CHANGE_RECIPE FUNCTION - switching to a UpdateView
-def change_recipe(request, pk):
-    if Recipe and RecipeForm:
-        instance = Recipe.objects.get(pk=pk)
-        if request.method == "POST":
-            form = RecipeForm(request.POST, instance=instance)
-            if form.is_valid():
-                form.save()
-                return redirect("recipe_detail", pk=pk)
-        else:
-            form = RecipeForm(instance=instance)
-    else:
-        form = None
-    context = {
-        "form": form,
-    }
-    return render(request, "recipes/edit.html", context)"""
-
-"""DELETED SHOW_RECIPES FUNCTION - switching to a ListView
-def show_recipes(request):
-    context = {
-        "recipes": Recipe.objects.all() if Recipe else [],
-    }
-    return render(request, "recipes/list.html", context)"""
-
-"""DELETED SHOW_RECIPE FUNCTION - switching to a DetailView
-def show_recipe(request, pk):
-    context = {
-        "recipe": Recipe.objects.get(pk=pk) if Recipe else None,
-        "rating_form": RatingForm(),
-    }
-    return render(request, "recipes/detail.html", context)"""
 
 
 def log_rating(request, recipe_id):
@@ -126,3 +76,8 @@ class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = "recipes/delete.html"
     success_url = reverse_lazy("recipes_list")
+
+
+class ShoppinglistListView(LoginRequiredMixin, ListView):
+    model = ShoppingItem
+    template_name = "recipes/shoppinglist.html"

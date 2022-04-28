@@ -82,3 +82,16 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"{self.value} {self.recipe}"
+
+
+class ShoppingItem(models.Model):
+    user = models.ForeignKey(
+        USER_MODEL, related_name="shopping_item", on_delete=models.CASCADE
+    )
+    food_item = models.ForeignKey(
+        FoodItem, related_name="shopping_item", on_delete=models.PROTECT
+    )
+    context_object_name = "shopping_list"
+
+    def __str__(self):
+        return f"{self.user} {self.food_item}"
