@@ -26,6 +26,11 @@
           <li>
             <a href="{% url 'mealplan_list'%}">Meal Plans</a>
           </li>
+          <li>
+            <a href="{% url 'shopping_item_list' %}"
+              >Shop List ({{ shopping_list|length}})</a
+            >
+          </li>
           {% endif %}
           <li>
             <a href="{% url 'recipe_new' %}">Write a recipe</a>
