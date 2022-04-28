@@ -11,7 +11,12 @@
     {% endfor %}
   </ul>
   <br />
-  <button class="button">Delete All</button>
+  <div>
+    <form method="post" action="{% url 'delete_all_shopping_items' %}">
+      {% csrf_token %}
+      <button class="button">Delete All</button>
+    </form>
+  </div>
 </main>
 
 {% endblock content%}

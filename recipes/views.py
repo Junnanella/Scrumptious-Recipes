@@ -43,6 +43,19 @@ class RecipeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["rating_form"] = RatingForm()
+
+        # Create a new empty list and assign it to a variable
+        foods = []
+
+        # For each item in the user's shopping items, which we
+        # can access through the code
+        users_items = self.request.user.shopping_item.all()
+
+        for item in users_items:
+            # Add the shopping item's food to the list
+            foods.append(item.food_item)
+
+        # Put that list into the context
         return context
 
 
@@ -125,4 +138,4 @@ def delete_shopping_list(request):
     # Go back to the shopping item list with a redirect
     # to the name of the registered shopping item list
     # path with code like this
-    return redirect("shopping_list")
+    return redirect("shopping_item_list")
