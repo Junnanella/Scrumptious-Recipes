@@ -1,1 +1,17 @@
-Working
+{% extends 'base.html' %} {% block content %}
+<main class="recipe-detail">
+  <a href="{% url 'recipes_list' %}">Back</a>
+  <br />
+  <h1>Your Shopping List</h1>
+  <ul>
+    {% for item in shopping_list %}
+    <li>{{ item.food_item }}</li>
+    {% empty %}
+    <p>No items in your shopping list</p>
+    {% endfor %}
+  </ul>
+  <br />
+  <button class="button">Delete All</button>
+</main>
+
+{% endblock content%}
