@@ -27,5 +27,5 @@ class TagDetailView(LoginRequiredMixin, DetailView):
 class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
     template_name = "tags/new.html"
-    fields = ["name"]
+    fields = ["name", "recipes"]
     success_url = reverse_lazy("recipes_list")
