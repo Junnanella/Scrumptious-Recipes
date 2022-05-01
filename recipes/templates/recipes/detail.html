@@ -15,6 +15,9 @@
       <h1>{{ recipe.name }}</h1>
       <h4>by: {{ recipe.author | default_if_none:"Unknown" }}</h4>
       <p>Created on {{ recipe.created }} | Updated on {{ recipe.updated }}</p>
+      <br>
+      <p>Serves {{ recipe.servings }} </p>
+
       <form method="post" action="{% url "recipe_rating" recipe.id %}">
         {% csrf_token %}
         {{ rating_form.as_p }}
