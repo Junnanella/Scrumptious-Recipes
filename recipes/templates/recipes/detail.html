@@ -1,69 +1,72 @@
-{% extends "base.html" %} {% load markdownify %}
-
-{% block content %}
-    <main class="recipe-detail">
-      <div>
-        <a href="{% url 'recipes_list' %}">Back</a>
-        {% if request.user == recipe.author %}
-        <a href="{% url 'recipe_edit' recipe.id %}">Edit</a>
-        <a href="{% url 'recipe_delete' recipe.id %}">Delete</a>
-        {% endif %}
-      </div>
-      {% if recipe.image %}
-      <img src="{{ recipe.image }}" class="pull-right" />
-      {% endif %}
-      <h1>{{ recipe.name }}</h1>
-      <h4>by: {{ recipe.author | default_if_none:"Unknown" }}</h4>
-      <p>Created on {{ recipe.created }} | Updated on {{ recipe.updated }}</p>
-      <br>
-      <p>Serves {{ recipe.servings }} </p>
-
-      <form method="post" action="{% url "recipe_rating" recipe.id %}">
-        {% csrf_token %}
-        {{ rating_form.as_p }}
-        <button class = "button">Rate</button>
-      </form>
-      <p>Tags: {% for tag in recipe.tags.all %}
-        <a href="{% url 'tag_detail' tag.pk %}">{{ tag.name }}</a>
-        {% endfor %}</p>
-        <a href="{% url 'tag_new' %}">Add New Tag</a>
-      {{ recipe.description | markdownify }}
-      <h2>Ingredients</h2>
-      <table>
-        <thead>
-          <tr>
-            <th colspan="2">Amount</th>
-            <th>Food item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for ingredient in recipe.ingredients.all %}
-          <tr>
-            <td>{{ ingredient.amount }}</td>
-            <td>{{ ingredient.measure.name }}</td>
-            <td>{{ ingredient.food_item.name }}</td>
-            <td>
-              {% if ingredient.food_item.name not in food_in_shopping_list %}
-              <!-- only show this if the ingredient food is not in the shopping list -->
-                <form method="POST" action="{% url 'shopping_item_create' %}">
-                  {% csrf_token %}
-                  <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}">
-                  <button>+ shopping list</button>
-                </form>
-              <!-- otherwise, show the message "in your list" -->
-              {% else %}
-              in your list
-              {% endif%}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <h2>Steps</h2>
-      <ol>
-        {% for step in recipe.steps.all %}
-        <li>{{ step.directions }}</li>
-        {% endfor %}
-      </ol>
-    </main>
+{% extends "base.html" %} {% load markdownify %} {% block content %}
+<main class="recipe-detail">
+  <div>
+    <a href="{% url 'recipes_list' %}">Back</a>
+    {% if request.user == recipe.author %}
+    <a href="{% url 'recipe_edit' recipe.id %}">Edit</a>
+    <a href="{% url 'recipe_delete' recipe.id %}">Delete</a>
+    {% endif %}
+  </div>
+  {% if recipe.image %}
+  <img src="{{ recipe.image }}" class="pull-right" />
+  {% endif %}
+  <h1>{{ recipe.name }}</h1>
+  <h4>by: {{ recipe.author | default_if_none:"Unknown" }}</h4>
+  <p>Created on {{ recipe.created }} | Updated on {{ recipe.updated }}</p>
+  {% if recipe.servings %}
+  <p>Serves {{ recipe.servings }}</p>
+  <form method="GET">
+    <input type="number" name="servings" required />
+    <button class="button">Resize</button>
+    {% endif %} <form method="post" action="{% url "recipe_rating" recipe.id
+    %}"> {% csrf_token %} {{ rating_form.as_p }}
+    <button class="button">Rate</button>
+  </form>
+  <p>
+    Tags: {% for tag in recipe.tags.all %}
+    <a href="{% url 'tag_detail' tag.pk %}">{{ tag.name }}</a>
+    {% endfor %}
+  </p>
+  <a href="{% url 'tag_new' %}">Add New Tag</a>
+  {{ recipe.description | markdownify }}
+  <h2>Ingredients</h2>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Amount</th>
+        <th>Food item</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ingredient in recipe.ingredients.all %}
+      <tr>
+        <td>{{ ingredient.amount }}</td>
+        <td>{{ ingredient.measure.name }}</td>
+        <td>{{ ingredient.food_item.name }}</td>
+        <td>
+          {% if ingredient.food_item.name not in food_in_shopping_list %}
+          <!-- only show this if the ingredient food is not in the shopping list -->
+          <form method="POST" action="{% url 'shopping_item_create' %}">
+            {% csrf_token %}
+            <input
+              type="hidden"
+              name="ingredient_id"
+              value="{{ ingredient.id }}"
+            />
+            <button>+ shopping list</button>
+          </form>
+          <!-- otherwise, show the message "in your list" -->
+          {% else %} in your list {% endif%}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h2>Steps</h2>
+  <ol>
+    {% for step in recipe.steps.all %}
+    <li>{{ step.directions }}</li>
+    {% endfor %}
+  </ol>
+</main>
 {% endblock content %}
