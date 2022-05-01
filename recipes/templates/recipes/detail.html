@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% load markdownify %} {% block content %}
+{% extends "base.html" %} {% load markdownify %} {% load custom_filters %}
+{%block content %}
 <main class="recipe-detail">
   <div>
     <a href="{% url 'recipes_list' %}">Back</a>
@@ -40,7 +41,7 @@
     <tbody>
       {% for ingredient in recipe.ingredients.all %}
       <tr>
-        <td>{{ ingredient.amount }}</td>
+        <td>{{ ingredient|resize_to:servings }}</td>
         <td>{{ ingredient.measure.name }}</td>
         <td>{{ ingredient.food_item.name }}</td>
         <td>

@@ -55,6 +55,13 @@ class RecipeDetailView(DetailView):
             # Add the shopping item's food to the list
             foods.append(item.food_item.name)
 
+        # The self.request.GET property is a dictionary
+        # Get the value out of there associated with the
+        #   key "servings"
+        # Store in the context dictionary with the key
+        #   "servings"
+        context["servings"] = self.request.GET.get("servings")
+
         # Put that list into the context
         context["food_in_shopping_list"] = foods
         return context
@@ -83,6 +90,7 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
         "name",
         "description",
         "image",
+        "servings",
     ]
     success_url = reverse_lazy("recipes_list")
 
