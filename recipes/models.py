@@ -15,6 +15,9 @@ class Recipe(models.Model):
     image = models.URLField(null=True, blank=True, max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    servings = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(50)], null=True
+    )
 
     """the __str__ method, is what gets called by Python when it wants to turn
     it into a string. You can use any of the properties
