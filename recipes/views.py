@@ -67,6 +67,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         "name",
         "description",
         "image",
+        "servings",
     ]
     success_url = reverse_lazy("recipes_list")
 

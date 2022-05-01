@@ -16,7 +16,7 @@ class Recipe(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     servings = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(50)], null=True
+        validators=[MinValueValidator(1), MaxValueValidator(50)], null=True
     )
 
     """the __str__ method, is what gets called by Python when it wants to turn
