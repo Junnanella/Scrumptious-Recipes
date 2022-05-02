@@ -8,7 +8,6 @@ def resize_to(ingredient, target):
     # Get the number of servings from the ingredient's
     # recipe using the ingredient.recipe.servings
     # properties
-    pprint(ingredient)
     servings = ingredient.recipe.servings
     amount = ingredient.amount
 
