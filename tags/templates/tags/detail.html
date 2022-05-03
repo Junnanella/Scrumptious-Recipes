@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <main class="recipe-detail">
   <a href="{% url 'tag_edit' tag.id %}">Edit</a>
+  <a href="{% url 'tag_delete' tag.id %}">Delete</a>
   <div class="recipe-card">
     <h2 class="recipe-card-title">{{ tag.name }}</h2>
   </div>

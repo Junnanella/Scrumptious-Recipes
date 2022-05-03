@@ -1,4 +1,10 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 from tags.models import Tag
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,3 +44,10 @@ class TagUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("tag_detail", kwargs={"pk": self.object.pk})
+
+
+class TagDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tag
+    template_name = "tags/delete.html"
+
+    success_url = reverse_lazy("tags_list")
