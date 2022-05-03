@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from tags.models import Tag
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,3 +29,12 @@ class TagCreateView(LoginRequiredMixin, CreateView):
     template_name = "tags/new.html"
     fields = ["name", "recipes"]
     success_url = reverse_lazy("recipes_list")
+
+
+class TagUpdateView(LoginRequiredMixin, UpdateView):
+    model = Tag
+    template_name = "tags/edit.html"
+    fields = ["name", "recipes"]
+
+    def get_success_url(self):
+        return reverse_lazy("tag_detail", kwargs={"pk": self.object.pk})

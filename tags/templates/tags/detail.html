@@ -1,5 +1,13 @@
 {% extends "base.html" %} {% block content %}
 <main class="recipe-detail">
-  <p>{{ tag.name }}</p>
+  <a href="{% url 'tag_edit' tag.id %}">Edit</a>
+  <div class="recipe-card">
+    <h2 class="recipe-card-title">{{ tag.name }}</h2>
+  </div>
+  {% for recipe in tag.recipes.all %}
+  <p>
+    <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.name }}</a>
+  </p>
+  {% endfor %}
 </main>
 {% endblock content %}
